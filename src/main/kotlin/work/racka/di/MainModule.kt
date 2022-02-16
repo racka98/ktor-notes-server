@@ -14,7 +14,7 @@ val mainModule = module {
     single {
         val config = HikariConfig()
         config.apply {
-            val uri = URI(System.getenv("DATABASE_URL"))
+            val uri = URI(System.getenv("ONLINE_DATABASE_URL"))
             val userInfo = uri.userInfo.split(":").toTypedArray()
             val username = userInfo[0]
             val password = userInfo[1]
