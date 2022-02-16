@@ -1,0 +1,1 @@
+web: java -jar target/work.racka.ktor-notes-service-0.0.1.jar
