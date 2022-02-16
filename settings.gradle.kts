@@ -1,0 +1,1 @@
+rootProject.name = "work.racka.ktor-notes-service"
