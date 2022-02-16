@@ -8,14 +8,21 @@ import work.racka.authentication.Auth
 import work.racka.authentication.JwtService
 import work.racka.data.NotesDatabase
 import work.racka.repository.Repository
-import work.racka.routes.UserRoutes
+import java.net.URI
 
 val mainModule = module {
     single {
         val config = HikariConfig()
         config.apply {
+            val uri = URI(System.getenv("DATABASE_URL"))
+            val userInfo = uri.userInfo.split(":").toTypedArray()
+            val username = userInfo[0]
+            val password = userInfo[1]
+
             driverClassName = System.getenv("JDBC_DRIVER")
-            jdbcUrl = System.getenv("DATABASE_URL")
+            //jdbcUrl = System.getenv("DATABASE_URL") For Local Use
+            jdbcUrl =
+                "jdbc:postgresql://${uri.host}:${uri.port}${uri.path}?sslmode=require&user=$username&password=$password"
             maximumPoolSize = 3
             isAutoCommit = false
             transactionIsolation = "TRANSACTION_REPEATABLE_READ"
